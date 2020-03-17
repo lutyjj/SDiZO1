@@ -1,10 +1,14 @@
 #include <iostream>
 #include <fstream>
+#include <random>
 #include "List.h"
 
+
 void List::display() {
+	// Set pointer to head of list
 	ElemList* tmp = head;
 	std::cout << "Size: " << size << " [ ";
+	// Cycle through list and show every element
 	while (tmp) {
 		std::cout << tmp->data << " ";
 		tmp = tmp->next;
@@ -13,11 +17,12 @@ void List::display() {
 }
 
 void List::clear() {
+	// Check if head exists
 	if (head) {
 		ElemList* tmp = head, *tmp_next;
 		while (tmp) {
 			tmp_next = tmp->next;
-			free(tmp);
+			delete tmp;
 			tmp = tmp_next;
 		}
 		head = nullptr;
@@ -36,26 +41,53 @@ bool List::search(int value) {
 	return false;
 }
 
-void List::push_random(int value, int index) {
-	ElemList* tmp = head;
-	ElemList* p = new ElemList;
-	p->data = value;
-
-	if (index > size) push_back(value);
-	else if (index == 0) push_front(value);
+void List::push_at(int value, int index) {
+	if (index > size - 1) push_back(value);
+	else if (index == 0 || head == nullptr) push_front(value);
 	else {
-		while (index - 1 && tmp->next) {
+		ElemList* tmp = head;
+		while (index > 1 && tmp->next) {
 			tmp = tmp->next;
 			index--;
 		}
+		ElemList* p = new ElemList;
+		p->data = value;
 		p->next = tmp->next;
 		p->prev = tmp;
 		tmp->next = p;
+		size++;
 	}
 }
 
-void List::pop_random() {
+void List::pop_at(int index) {
+	if (head) {
+		if (index >= size - 1) pop_back();
+		else if (index == 0) pop_front();
+		else {
+			ElemList* tmp = head;
+			while (index > 0 && tmp->next) {
+				tmp = tmp->next;
+				index--;
+			}
+			tmp->next->prev = tmp->prev;
+			tmp->prev->next = tmp->next;
+			delete tmp;
+			size--;
+		}
+	}
+}
 
+void List::fill_random(int size) {
+	std::random_device rd;
+	std::mt19937 rng(rd());
+	std::uniform_int_distribution<std::mt19937::result_type> dist(0, 100);
+
+	clear();
+	int counter = 0;
+	while (counter < size) {
+		push_back(dist(rng));
+		counter++;
+	}
 }
 
 void List::readFromFile(std::string fileName) {
@@ -105,6 +137,7 @@ void List::pop_back() {
 		else {
 			delete p;
 			head = nullptr;
+			size = 0;
 		}
 	}
 }
