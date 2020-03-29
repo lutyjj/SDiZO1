@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -138,14 +138,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Array.cpp" />
+    <ClCompile Include="BinaryHeap.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestArray.cpp" />
+    <ClCompile Include="TestBinaryHeap.cpp" />
     <ClCompile Include="TestList.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Array.h" />
+    <ClInclude Include="BinaryHeap.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="TestArray.h" />
+    <ClInclude Include="TestBinaryHeap.h" />
     <ClInclude Include="TestList.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>

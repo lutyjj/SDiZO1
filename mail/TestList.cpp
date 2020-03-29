@@ -25,7 +25,7 @@ void TestList::startTest() {
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(0, 2000);
 
-	log.open("ListTest/ListTest_PopBack.txt", std::ios_base::app);
+	log.open("ListTest/ListTest_PopBack", std::ios_base::app);
 	if (log) {
 		log << "List size: " << listSize << "\n";
 		for (int n = 0; n < timesToRepeat; n++) {

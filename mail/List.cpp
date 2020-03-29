@@ -3,10 +3,6 @@
 #include <random>
 #include "List.h"
 
-List::List() {
-	head = nullptr;
-	size = 0;
-}
 
 void List::display() {
 	// Set pointer to head of list

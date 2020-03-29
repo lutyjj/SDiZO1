@@ -6,7 +6,6 @@ struct ElemList {
 };
 
 struct List {
-	List();
 	ElemList* head = nullptr;
 	int size = 0;
 	void display();
