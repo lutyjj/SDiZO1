@@ -137,19 +137,19 @@ void menu_list() {
 
 		case 10:
 			std::cout << "Test started. \n";
-			TestList test(500, 10, 100);
+			TestList test(500, 100, 100);
 			test.startTest();
-			test.setPreferences(1000, 10, 100);
+			test.setPreferences(1000, 100, 100);
 			test.startTest();
-			test.setPreferences(2000, 10, 100);
+			test.setPreferences(2000, 100, 100);
 			test.startTest();
-			test.setPreferences(4000, 10, 100);
+			test.setPreferences(4000, 100, 100);
 			test.startTest();
-			test.setPreferences(6000, 10, 100);
+			test.setPreferences(6000, 100, 100);
 			test.startTest();
-			test.setPreferences(8000, 5, 200);
+			test.setPreferences(8000, 50, 200);
 			test.startTest();
-			test.setPreferences(10000, 5, 200);
+			test.setPreferences(10000, 50, 200);
 			test.startTest();
 			std::cout << "Test finished. \n";
 			break;
@@ -264,19 +264,19 @@ void menu_array() {
 
 		case 10:
 			std::cout << "Test started. \n";
-			TestArray test(500, 10, 100);
+			TestArray test(500, 100, 100);
 			test.startTest();
-			test.setPreferences(1000, 10, 100);
+			test.setPreferences(1000, 100, 100);
 			test.startTest();
-			test.setPreferences(2000, 10, 100);
+			test.setPreferences(2000, 100, 100);
 			test.startTest();
-			test.setPreferences(4000, 10, 100);
+			test.setPreferences(4000, 100, 100);
 			test.startTest();
-			test.setPreferences(6000, 10, 100);
+			test.setPreferences(6000, 100, 100);
 			test.startTest();
-			test.setPreferences(8000, 5, 200);
+			test.setPreferences(8000, 50, 200);
 			test.startTest();
-			test.setPreferences(10000, 5, 200);
+			test.setPreferences(10000, 50, 200);
 			test.startTest();
 			std::cout << "Test finished. \n";
 			break;
@@ -353,6 +353,7 @@ void menu_binary_heap() {
 			binaryHeap.build();
 			timer.stop();
 			timer.showTimeElapsed();
+			break;
 
 		case 6:
 			std::cout << "Enter file name: ";
@@ -362,17 +363,19 @@ void menu_binary_heap() {
 
 		case 10:
 			std::cout << "Test started. \n";
-			TestBinaryHeap test(500, 10, 100);
+			TestBinaryHeap test(500, 100, 100);
 			test.startTest();
-			test.setPreferences(1000, 10, 100);
+			test.setPreferences(1000, 100, 100);
 			test.startTest();
-			test.setPreferences(2000, 10, 100);
+			test.setPreferences(2000, 100, 100);
 			test.startTest();
-			test.setPreferences(4000, 10, 100);
+			test.setPreferences(4000, 100, 100);
 			test.startTest();
-			test.setPreferences(6000, 10, 100);
+			test.setPreferences(6000, 100, 100);
 			test.startTest();
-			test.setPreferences(10000, 10, 100);
+			test.setPreferences(8000, 100, 200);
+			test.startTest();
+			test.setPreferences(10000, 100, 200);
 			test.startTest();
 			std::cout << "Test finished. \n";
 			break;

@@ -18,84 +18,84 @@ void Array::display() {
 }
 
 void Array::push_front(int value) {
-	int sizeNew = size + 1;
-	int* arrayNew = new int[sizeNew];
-	arrayNew[0] = value;
-	for (int i = 0; i < size; i++) {
-		arrayNew[i + 1] = head[i];
+	size++;
+	int* new_arr = new int[size];
+	new_arr[0] = value;
+	for (int i = 1; i < size; i++) {
+		new_arr[i] = head[i - 1];
 	}
 	delete[] head;
-	head = arrayNew;
-	size++;
+	head = new_arr;
 }
 
 void Array::push_at(int value, int index) {
 	if (size == 0) push_front(value);
 	else if (index >= size) push_back(value);
 	else {
-		int* arrayNew = new int[size + 1];
+		size++;
+		int* new_arr = new int[size];
 		for (int i = 0; i < index; i++) {
-			arrayNew[i] = head[i];
+			new_arr[i] = head[i];
 		}
-		arrayNew[index] = value;
-		for (int i = index; i < size; i++) {
-			arrayNew[i+1] = head[i];
+		new_arr[index] = value;
+		for (int i = index + 1; i < size; i++) {
+			new_arr[i] = head[i - 1];
 		}
 		delete[] head;
-		head = arrayNew;
-		size++;
+		head = new_arr;
 	}
 }
 
 void Array::push_back(int value) {
-	int* arrayNew = new int[size + 1];
-	arrayNew[size] = value;
-	for (int i = 0; i < size; i++) {
-		arrayNew[i] = head[i];
-	}
-	delete[] head;
-	head = arrayNew;
 	size++;
+	int* new_arr = new int[size];
+	for (int i = 0; i < size - 1; i++) {
+		new_arr[i] = head[i];
+	}
+
+	delete[] head;
+	head = new_arr;
+	head[size - 1] = value;
 }
 
 void Array::pop_front() {
 	if (head && size > 0) {
-		int* arrayNew = new int[size - 1];
-		for (int i = 0; i < size - 1; i++) {
-			arrayNew[i] = head[i + 1];
+		size--;
+		int* new_arr = new int[size];
+		for (int i = 0; i < size; i++) {
+			new_arr[i] = head[i + 1];
 		}
 		delete[] head;
-		head = arrayNew;
-		size--;
+		head = new_arr;
 	}
 }
 
 void Array::pop_at(int index) {
 	if (index == 0) pop_front();
-	else if (index > size) pop_back();
+	else if (index >= size) pop_back();
 	else {
-		int* newArray = new int[size - 1];
+		size--;
+		int* new_arr = new int[size];
 		for (int i = 0; i < index; i++) {
-			newArray[i] = head[i];
+			new_arr[i] = head[i];
 		}
-		for (int i = index; i < size - 1; i++) {
-			newArray[i] = head[i + 1];
+		for (int i = index; i < size; i++) {
+			new_arr[i] = head[i + 1];
 		}
 		delete[] head;
-		head = newArray;
-		size--;
+		head = new_arr;
 	}
 }
 
 void Array::pop_back() {
 	if (head && size > 0) {
-		int* arrayNew = new int[size - 1];
-		for (int i = 0; i < size - 1; i++) {
-			arrayNew[i] = head[i];
-		}
-		//delete[] head;
-		head = arrayNew;
 		size--;
+		int* new_arr = new int[size];
+		for (int i = 0; i < size; i++) {
+			new_arr[i] = head[i];
+		}
+		delete[] head;
+		head = new_arr;
 	}
 }
 
@@ -121,9 +121,8 @@ void Array::fill_random(int size) {
 	head = new int[size];
 	this->size = 0;
 	// Fill array with random numbers between [0, 100]
-	while (size) {
+	for (int i = 0; i < size; i++) {
 		push_back(dist(rng));
-		size--;
 	}
 }
 

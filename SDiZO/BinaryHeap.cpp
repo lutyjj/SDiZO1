@@ -10,7 +10,6 @@ BinaryHeap::BinaryHeap() {
 }
 
 bool BinaryHeap::search(int value) {
-	// Poprawic
 	for (int i = 0; i < size; i++) {
 		if (heapArr[i] == value)
 			return true;
@@ -19,6 +18,8 @@ bool BinaryHeap::search(int value) {
 }
 
 void BinaryHeap::push(int value) {
+	if (size == 20000)
+		return;
 	// Add value to heap
 	heapArr[size] = value;
 	size++;
@@ -34,7 +35,6 @@ void BinaryHeap::push(int value) {
 		i = parent;
 		parent = (i - 1) / 2;
 	}
-	
 }
 
 void BinaryHeap::pop() {
@@ -48,29 +48,27 @@ void BinaryHeap::pop() {
 	heapify(0);
 }
 
-void BinaryHeap::heapify(int i) {
-	int leftChild;
-	int rightChild;
-	int largestChild;
+void BinaryHeap::heapify(int index) {
+	int left, right, largest;
 
 	while (true) {
-		leftChild = 2 * i + 1;
-		rightChild = 2 * i + 2;
-		largestChild = i;
+		left = 2 * index + 1;
+		right = 2 * index + 2;
+		largest = index;
 
-		if (leftChild < size && heapArr[leftChild] > heapArr[largestChild]) 
-			largestChild = leftChild;
+		if (left < size && heapArr[left] > heapArr[largest]) 
+			largest = left;
 
-		if (rightChild < size && heapArr[rightChild] > heapArr[largestChild])
-			largestChild = rightChild;
+		if (right < size && heapArr[right] > heapArr[largest])
+			largest = right;
 
-		if (largestChild == i)
+		if (largest == index)
 			break;
 
-		int temp = heapArr[i];
-		heapArr[i] = heapArr[largestChild];
-		heapArr[largestChild] = temp;
-		i = largestChild;
+		int temp = heapArr[index];
+		heapArr[index] = heapArr[largest];
+		heapArr[largest] = temp;
+		index = largest;
 	}
 }
 
@@ -80,23 +78,20 @@ void BinaryHeap::fillRandom(int size) {
 	std::uniform_int_distribution<std::mt19937::result_type> dist(0, 100);
 
 	// Clear heap array
-	delete[] heapArr;
-	heapArr = new int[20000];
+	for (int i = 0; i < size; i++) {
+		heapArr[i] = 0;
+	}
 	this->size = 0;
 
-	int counter = 0;
 	// Fill array with random numbers between [0, 100]
-	while (counter < size) {
+	for (int i = 0; i < size; i++) {
 		push(dist(rng));
-		counter++;
 	}
-	build();
 }
 
 void BinaryHeap::build() {
-	for (int i = size / 2; i >= 0; i--) {
+	for (int i = (size - 2) / 2; i >= 0; i--)
 		heapify(i);
-	}
 }
 
 void BinaryHeap::display(std::string sp, std::string sn, int value)

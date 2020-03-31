@@ -1,8 +1,8 @@
 #pragma once
 struct Array {
 	Array();
-	int* head = nullptr;
-	int size = 0;
+	int* head;
+	int size;
 	void display();
 	void fill_random(int);
 	void push_front(int);

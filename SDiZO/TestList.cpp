@@ -25,7 +25,10 @@ void TestList::startTest() {
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(0, 2000);
 
+	auto totalActions = timesToAct * timesToRepeat;
+
 	log.open("ListTest/ListTest_PopBack.txt", std::ios_base::app);
+	long double counter = 0;
 	if (log) {
 		log << "List size: " << listSize << "\n";
 		for (int n = 0; n < timesToRepeat; n++) {
@@ -35,9 +38,15 @@ void TestList::startTest() {
 				list.pop_back();
 				timer.stop();
 				log << timer.timeElapsed << std::endl;
+				counter = timer.timeElapsed + counter;
 			}
 		}
 
+		std::cout << "Tested size: " << listSize << std::endl;
+		std::cout << "Total elements tested: " << totalActions << std::endl;
+		std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+
+		log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
 		log.close();
 	}
 	else {
@@ -46,6 +55,7 @@ void TestList::startTest() {
 	}
 
 	log.open("ListTest/ListTest_PopFront.txt", std::ios_base::app);
+	counter = 0;
 	log << "List size: " << listSize << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		list.fill_random(listSize);
@@ -54,12 +64,19 @@ void TestList::startTest() {
 			list.pop_front();
 			timer.stop();
 			log << timer.timeElapsed << std::endl;
+			counter = timer.timeElapsed + counter;
 		}
 	}
 
+	std::cout << "Tested size: " << listSize << std::endl;
+	std::cout << "Total elements tested: " << totalActions << std::endl;
+	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+
+	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
 	log.close();
 
 	log.open("ListTest/ListTest_PopAt.txt", std::ios_base::app);
+	counter = 0;
 	log << "List size: " << listSize << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		list.fill_random(listSize);
@@ -69,12 +86,19 @@ void TestList::startTest() {
 			list.pop_at(random_number);
 			timer.stop();
 			log << timer.timeElapsed << std::endl;
+			counter = timer.timeElapsed + counter;
 		}
 	}
 
+	std::cout << "Tested size: " << listSize << std::endl;
+	std::cout << "Total elements tested: " << totalActions << std::endl;
+	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+
+	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
 	log.close();
 
 	log.open("ListTest/ListTest_PushBack.txt", std::ios_base::app);
+	counter = 0;
 	log << "List size: " << listSize << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		list.fill_random(listSize);
@@ -83,12 +107,19 @@ void TestList::startTest() {
 			list.push_back(dist(rng));
 			timer.stop();
 			log << timer.timeElapsed << std::endl;
+			counter = timer.timeElapsed + counter;
 		}
 	}
 
+	std::cout << "Tested size: " << listSize << std::endl;
+	std::cout << "Total elements tested: " << totalActions << std::endl;
+	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+
+	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
 	log.close();
 
 	log.open("ListTest/ListTest_PushFront.txt", std::ios_base::app);
+	counter = 0;
 	log << "List size: " << listSize << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		list.fill_random(listSize);
@@ -97,12 +128,19 @@ void TestList::startTest() {
 			list.push_front(dist(rng));
 			timer.stop();
 			log << timer.timeElapsed << std::endl;
+			counter = timer.timeElapsed + counter;
 		}
 	}
 
+	std::cout << "Tested size: " << listSize << std::endl;
+	std::cout << "Total elements tested: " << totalActions << std::endl;
+	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+
+	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
 	log.close();
 
 	log.open("ListTest/ListTest_PushAt.txt", std::ios_base::app);
+	counter = 0;
 	log << "List size: " << listSize << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		list.fill_random(listSize);
@@ -112,9 +150,15 @@ void TestList::startTest() {
 			list.push_at(random_number, random_number);
 			timer.stop();
 			log << timer.timeElapsed << std::endl;
+			counter = timer.timeElapsed + counter;
 		}
 	}
 
+	std::cout << "Tested size: " << listSize << std::endl;
+	std::cout << "Total elements tested: " << totalActions << std::endl;
+	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+
+	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
 	log.close();
 	list.clear();
 }
