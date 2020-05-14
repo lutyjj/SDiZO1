@@ -11,13 +11,27 @@ List::List() {
 void List::display() {
 	// Set pointer to head of list
 	ElemList* tmp = head;
-	std::cout << "Size: " << size << " [ ";
-	// Cycle through list and show every element
-	while (tmp) {
-		std::cout << tmp->data << " ";
-		tmp = tmp->next;
+	std::cout << "Size: " << size << std::endl;
+	if (head) {
+		// Cycle through list and show every element
+		std::cout << "[ ";
+		while (tmp) {
+			std::cout << tmp->data << " ";
+			tmp = tmp->next;
+		}
+		std::cout << "]" << std::endl;
+
+		tmp = head;
+		std::cout << "[ ";
+		while (tmp && tmp->next) {
+			tmp = tmp->next;
+		}
+		while (tmp != head) {
+			std::cout << tmp->data << " ";
+			tmp = tmp->prev;
+		}
+		std::cout << tmp->data << " ]" << std::endl;
 	}
-	std::cout << "]";
 }
 
 void List::clear() {

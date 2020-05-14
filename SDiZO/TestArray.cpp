@@ -20,18 +20,19 @@ void TestArray::setPreferences(int arraySize, int timesToRepeat, int timesToAct)
 void TestArray::startTest() {
 	Timer timer;
 	Array array;
-	std::ofstream log;
+	std::ofstream log, avg;
 	std::random_device dev;
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(0, 2000);
 
 	auto totalActions = timesToAct * timesToRepeat;
 
+	avg.open("ArrayTest/ArrayTest_Avg.txt", std::ios_base::app);
 	log.open("ArrayTest/ArrayTest_PopBack.txt", std::ios_base::app);
 	long double counter = 0;
 	if (log) {
 		log << "Array size: " << arraySize << "\n";
-		log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+		log << "Total elements tested: " << totalActions << "\n";
 		for (int n = 0; n < timesToRepeat; n++) {
 			array.fill_random(arraySize);
 			for (int k = 0; k < timesToAct; k++) {
@@ -46,8 +47,9 @@ void TestArray::startTest() {
 		std::cout << "Tested size: " << arraySize << std::endl;
 		std::cout << "Total elements tested: " << totalActions << std::endl;
 		std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+		avg << counter / totalActions << "\n";
 
-		log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+		log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 		log.close();
 	}
 	else {
@@ -58,7 +60,7 @@ void TestArray::startTest() {
 	log.open("ArrayTest/ArrayTest_PopFront.txt", std::ios_base::app);
 	counter = 0;
 	log << "Array size: " << arraySize << "\n";
-	log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+	log << "Total elements tested: " << totalActions << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		array.fill_random(arraySize);
 		for (int k = 0; k < timesToAct; k++) {
@@ -73,14 +75,15 @@ void TestArray::startTest() {
 	std::cout << "Tested size: " << arraySize << std::endl;
 	std::cout << "Total elements tested: " << totalActions << std::endl;
 	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+	avg << counter / totalActions << "\n";
 
-	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+	log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 	log.close();
 
 	log.open("ArrayTest/ArrayTest_PopAt.txt", std::ios_base::app);
 	counter = 0;
 	log << "Array size: " << arraySize << "\n";
-	log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+	log << "Total elements tested: " << totalActions << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		array.fill_random(arraySize);
 		for (int k = 0; k < timesToAct; k++) {
@@ -96,14 +99,15 @@ void TestArray::startTest() {
 	std::cout << "Tested size: " << arraySize << std::endl;
 	std::cout << "Total elements tested: " << totalActions << std::endl;
 	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+	avg << counter / totalActions << "\n";
 
-	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+	log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 	log.close();
 
 	log.open("ArrayTest/ArrayTest_PushBack.txt", std::ios_base::app);
 	counter = 0;
 	log << "Array size: " << arraySize << "\n";
-	log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+	log << "Total elements tested: " << totalActions << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		array.fill_random(arraySize);
 		for (int k = 0; k < timesToAct; k++) {
@@ -118,14 +122,15 @@ void TestArray::startTest() {
 	std::cout << "Tested size: " << arraySize << std::endl;
 	std::cout << "Total elements tested: " << totalActions << std::endl;
 	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+	avg << counter / totalActions << "\n";
 
-	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+	log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 	log.close();
 
 	log.open("ArrayTest/ArrayTest_PushFront.txt", std::ios_base::app);
 	counter = 0;
 	log << "Array size: " << arraySize << "\n";
-	log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+	log << "Total elements tested: " << totalActions << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		array.fill_random(arraySize);
 		for (int k = 0; k < timesToAct; k++) {
@@ -140,14 +145,15 @@ void TestArray::startTest() {
 	std::cout << "Tested size: " << arraySize << std::endl;
 	std::cout << "Total elements tested: " << totalActions << std::endl;
 	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+	avg << counter / totalActions << "\n";
 
-	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+	log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 	log.close();
 
 	log.open("ArrayTest/ArrayTest_PushAt.txt", std::ios_base::app);
 	counter = 0;
 	log << "List size: " << arraySize << "\n";
-	log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+	log << "Total elements tested: " << totalActions << "\n";
 	for (int n = 0; n < timesToRepeat; n++) {
 		array.fill_random(arraySize);
 		for (int k = 0; k < timesToAct; k++) {
@@ -163,7 +169,36 @@ void TestArray::startTest() {
 	std::cout << "Tested size: " << arraySize << std::endl;
 	std::cout << "Total elements tested: " << totalActions << std::endl;
 	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+	avg << counter / totalActions << "\n";
 
-	log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+	log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 	log.close();
+
+	log.open("ArrayTest/ArrayTest_Search.txt", std::ios_base::app);
+	counter = 0;
+	log << "Array size: " << arraySize << "\n";
+	log << "Total elements tested: " << totalActions << "\n";
+	for (int n = 0; n < timesToRepeat; n++) {
+		array.fill_random(arraySize);
+		for (int k = 0; k < timesToAct; k++) {
+			int random_number = dist(rng);
+			timer.start();
+			array.search(random_number);
+			timer.stop();
+			log << timer.timeElapsed << std::endl;
+			counter = timer.timeElapsed + counter;
+		}
+	}
+
+	std::cout << "Tested size: " << arraySize << std::endl;
+	std::cout << "Total elements tested: " << totalActions << std::endl;
+	std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+	avg << counter / totalActions << "\n";
+
+	log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
+	log.close();
+
+	avg << "\n";
+	avg.close();
+
 }

@@ -10,6 +10,7 @@ BinaryHeap::BinaryHeap() {
 }
 
 bool BinaryHeap::search(int value) {
+	// Cycle through whole heap array and compare
 	for (int i = 0; i < size; i++) {
 		if (heapArr[i] == value)
 			return true;
@@ -18,8 +19,6 @@ bool BinaryHeap::search(int value) {
 }
 
 void BinaryHeap::push(int value) {
-	if (size == 20000)
-		return;
 	// Add value to heap
 	heapArr[size] = value;
 	size++;
@@ -45,10 +44,34 @@ void BinaryHeap::pop() {
 	heapArr[size - 1] = 0;
 	size--;
 
-	heapify(0);
+	heapifyFromTop(0);
 }
 
-void BinaryHeap::heapify(int index) {
+void BinaryHeap::pop_value(int value) {
+	int index = 0;
+
+	for (int i = 0; i < size; i++) {
+		if (heapArr[i] == value) {
+			index = i;
+			break;
+		}
+	}
+
+	if (index == 0) {
+		pop();
+		return;
+	}
+
+	size--;
+	if (size == 0) 
+		return;
+	heapArr[index] = heapArr[size];
+
+	heapifyFromTop(index);
+	heapifyFromBottom(index);
+}
+
+void BinaryHeap::heapifyFromTop(int index) {
 	int left, right, largest;
 
 	while (true) {
@@ -65,10 +88,25 @@ void BinaryHeap::heapify(int index) {
 		if (largest == index)
 			break;
 
-		int temp = heapArr[index];
+		int tmp = heapArr[index];
 		heapArr[index] = heapArr[largest];
-		heapArr[largest] = temp;
+		heapArr[largest] = tmp;
 		index = largest;
+	}
+}
+
+void BinaryHeap::heapifyFromBottom(int index) {
+	int parent = (index - 1) / 2;
+	int tmp = 0;
+
+	while (parent || index) {
+		if (heapArr[parent] < heapArr[index]) {
+			tmp = heapArr[parent];
+			heapArr[parent] = heapArr[index];
+			heapArr[index] = tmp;
+		}
+		index = parent;
+		parent = (index - 1) / 2;
 	}
 }
 
@@ -91,11 +129,10 @@ void BinaryHeap::fillRandom(int size) {
 
 void BinaryHeap::build() {
 	for (int i = (size - 2) / 2; i >= 0; i--)
-		heapify(i);
+		heapifyFromTop(i);
 }
 
-void BinaryHeap::display(std::string sp, std::string sn, int value)
-{
+void BinaryHeap::display(std::string sp, std::string sn, int value) {
 	std::string stringR, stringL, stringP;
 	std::string s;
 	stringR = stringL = stringP = "  ";
@@ -118,9 +155,14 @@ void BinaryHeap::display(std::string sp, std::string sn, int value)
 	}
 }
 
+void BinaryHeap::display() {
+	display("", "", 0);
+}
+
 void BinaryHeap::readFromFile(std::string fileName) {
-	// Clear list
+	// Clear array
 	delete[] heapArr;
+	size = 0;
 	std::ifstream file;
 	int value;
 	// Open file with entered name
@@ -131,6 +173,7 @@ void BinaryHeap::readFromFile(std::string fileName) {
 		// as per project requierements
 		file >> value;
 		std::cout << "Number of items: " << value;
+		heapArr = new int[value];
 		// Push every value from file to tail of list
 		while (file >> value) {
 			push(value);

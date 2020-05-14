@@ -19,8 +19,13 @@ void Array::display() {
 
 void Array::push_front(int value) {
 	size++;
+	// Create new array with bigger size
 	int* new_arr = new int[size];
+
+	// Insert new value in front
 	new_arr[0] = value;
+
+	// Copy rest of array
 	for (int i = 1; i < size; i++) {
 		new_arr[i] = head[i - 1];
 	}
@@ -34,10 +39,14 @@ void Array::push_at(int value, int index) {
 	else {
 		size++;
 		int* new_arr = new int[size];
+		// Copy array part before index of new element
 		for (int i = 0; i < index; i++) {
 			new_arr[i] = head[i];
 		}
+		// Insert new element
 		new_arr[index] = value;
+
+		// Copy rest of array
 		for (int i = index + 1; i < size; i++) {
 			new_arr[i] = head[i - 1];
 		}
@@ -48,20 +57,27 @@ void Array::push_at(int value, int index) {
 
 void Array::push_back(int value) {
 	size++;
-	int* new_arr = new int[size];
+	int* newArr = new int[size];
+
+	// Copy array to new array
 	for (int i = 0; i < size - 1; i++) {
-		new_arr[i] = head[i];
+		newArr[i] = head[i];
 	}
 
 	delete[] head;
-	head = new_arr;
+	head = newArr;
+
+	// Insert new element
 	head[size - 1] = value;
 }
 
 void Array::pop_front() {
 	if (head && size > 0) {
 		size--;
+		// Create smaller array
 		int* new_arr = new int[size];
+
+		// Copy all elements from main array except first element
 		for (int i = 0; i < size; i++) {
 			new_arr[i] = head[i + 1];
 		}
@@ -75,10 +91,15 @@ void Array::pop_at(int index) {
 	else if (index >= size) pop_back();
 	else {
 		size--;
+		// Create smaller array
 		int* new_arr = new int[size];
+
+		// Copy part of array to new array
 		for (int i = 0; i < index; i++) {
 			new_arr[i] = head[i];
 		}
+
+		// Skip element at index and copy rest
 		for (int i = index; i < size; i++) {
 			new_arr[i] = head[i + 1];
 		}
@@ -90,7 +111,11 @@ void Array::pop_at(int index) {
 void Array::pop_back() {
 	if (head && size > 0) {
 		size--;
+
+		// Create smaller array
 		int* new_arr = new int[size];
+
+		// Copy all elements except last one
 		for (int i = 0; i < size; i++) {
 			new_arr[i] = head[i];
 		}
@@ -101,6 +126,7 @@ void Array::pop_back() {
 
 bool Array::search(int value) {
 	if (head && size > 0) {
+		// Check every element of array
 		for (int i = 0; i < size; i++) {
 			if (head[i] == value) {
 				return true;
@@ -127,7 +153,7 @@ void Array::fill_random(int size) {
 }
 
 void Array::readFromFile(std::string fileName) {
-	// Clear list
+	// Clear array
 	delete[] head;
 	std::ifstream file;
 	int value;
@@ -139,6 +165,7 @@ void Array::readFromFile(std::string fileName) {
 		// as per project requierements
 		file >> value;
 		std::cout << "Number of items: " << value;
+		head = new int[value];
 		// Push every value from file to tail of list
 		while (file >> value) {
 			push_back(value);

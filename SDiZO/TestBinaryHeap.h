@@ -9,4 +9,3 @@ private:
 	int heapSize;
 	int timesToAct;
 };
-

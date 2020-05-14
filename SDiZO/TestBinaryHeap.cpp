@@ -20,18 +20,18 @@ void TestBinaryHeap::setPreferences(int heapSize, int timesToRepeat, int timesTo
 void TestBinaryHeap::startTest() {
 	Timer timer;
 	BinaryHeap binaryHeap;
-	std::ofstream log;
+	std::ofstream log, avg;
 	std::random_device dev;
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(0, 2000);
 
 	auto totalActions = timesToAct * timesToRepeat;
-
+	avg.open("BinaryHeapTest/BinaryHeap_Avg.txt", std::ios_base::app);
 	log.open("BinaryHeapTest/BinaryHeapTest_Pop.txt", std::ios_base::app);
 	if (log) {
 		long double counter = 0;
 		log << "BinaryHeap size: " << heapSize << "\n";
-		log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+		log << "Total elements tested: " << totalActions << "\n";
 
 		for (int n = 0; n < timesToRepeat; n++) {
 			binaryHeap.fillRandom(heapSize);
@@ -47,8 +47,9 @@ void TestBinaryHeap::startTest() {
 		std::cout << "Tested size: " << heapSize << std::endl;
 		std::cout << "Total elements tested: " << totalActions << std::endl;
 		std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+		avg << counter / totalActions << "\n";
 
-		log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+		log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 	}
 	else {
 		std::cout << "Can't create file. Check if folder \"BinaryHeapTest\" exists. Create if not. \n";
@@ -62,7 +63,7 @@ void TestBinaryHeap::startTest() {
 	if (log) {
 		long double counter = 0;
 		log << "BinaryHeap size: " << heapSize << "\n";
-		log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+		log << "Total elements tested: " << totalActions << "\n";
 
 		for (int n = 0; n < timesToRepeat; n++) {
 			binaryHeap.fillRandom(heapSize);
@@ -79,8 +80,9 @@ void TestBinaryHeap::startTest() {
 		std::cout << "Tested size: " << heapSize << std::endl;
 		std::cout << "Total elements tested: " << totalActions << std::endl;
 		std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+		avg << counter / totalActions << "\n";
 
-		log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+		log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 	}
 	else {
 		std::cout << "Can't create file. Check if folder \"BinaryHeapTest\" exists. Create if not. \n";
@@ -93,7 +95,7 @@ void TestBinaryHeap::startTest() {
 	if (log) {
 		long double counter = 0;
 		log << "BinaryHeap size: " << heapSize << "\n";
-		log << "Total elements tested: " << timesToAct * timesToRepeat << "\n";
+		log << "Total elements tested: " << totalActions << "\n";
 
 		for (int n = 0; n < timesToRepeat; n++) {
 			binaryHeap.fillRandom(heapSize);
@@ -104,19 +106,23 @@ void TestBinaryHeap::startTest() {
 				timer.stop();
 				log << timer.timeElapsed << std::endl;
 				counter = timer.timeElapsed + counter;
+				
 			}
 		}
 
 		std::cout << "Tested size: " << heapSize << std::endl;
 		std::cout << "Total elements tested: " << totalActions << std::endl;
 		std::cout << "Avg. time: " << counter / totalActions << " [ms]" << std::endl;
+		avg << counter / totalActions << "\n";
 
-		log << "Avg.time: " << counter / (timesToAct * timesToRepeat) << "[ms]" << "\n";
+		log << "Avg.time: " << counter / totalActions << "[ms]" << "\n";
 	}
 	else {
 		std::cout << "Can't create file. Check if folder \"BinaryHeapTest\" exists. Create if not. \n";
 		return;
 	}
 
+	avg << "\n";
+	avg.close();
 	log.close();
 }
